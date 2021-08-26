@@ -1,0 +1,64 @@
+# This class is for the node
+class Node:
+    def __init__(self, value):
+        self.value = value
+        self.next = None
+        self.pre = None
+
+
+# This class for adding the node and inisial the Link list
+class DoubleLinkList:
+    def __init__(self):
+        self.head = None
+        self.tail = None
+        self.p = None
+        self.index = 0
+
+    # This function is for adding value in the link list
+    def add(self, element):
+        node = Node(element)
+        if self.tail is None:
+            self.tail = node
+            self.head = node
+            self.p = self.head
+            node.pre = None
+        else:
+            self.tail.next = node
+            node.pre = self.p
+            self.p = node
+            self.tail = node
+    # This two function is for remove element for the link list
+    def remove(self, val):
+        s = self.head
+        while s is not None:
+            if val is s.value:
+                self.rm(s)
+            s = s.next
+
+    def rm(self, node):
+        if node.pre is None:
+            self.head = node.next
+        else:
+            node.pre.next = node.next
+        if node.next is None:
+            self.tail = node.pre
+        else:
+            node.next.pre = node.pre
+
+    # This function is for print the link list
+    def __str__(self):
+        lst = []
+        s = self.head
+        while s is not None:
+            lst.append(s.value)
+            s = s.next
+        return " ".join(str(i) for i in lst)
+
+
+d = DoubleLinkList()
+d.add(1)
+d.add(2)
+d.add(3)
+d.add(4)
+d.remove(4)
+print(d)
